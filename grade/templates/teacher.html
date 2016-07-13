@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="./../static/css/bootstrap.css" rel="stylesheet">
+    <link href="./../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./../static/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="./../static/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link herf="./../static/fonts/glyphicons-halflings-regular">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="./../static/css/jquery.dataTables.css">
+    <script src="./../static/js/jquery-1.11.3.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="./../static/js/jquery.dataTables.js"></script>
+    <script src="./../static/js/bootstrap.js"></script>
+    <script src="./../static/js/bootstrap.min.js"></script>
+  	
+    <script type="text/javascript">
+    function switch_dis(btn){
+    	var p=document.getElementById("personal_info");
+	var m=document.getElementById("main_chart");
+	var c=document.getElementById("course_container");
+	var a=document.getElementById("account_info");
+	switch(btn){
+		case 1:
+		m.style.display="none";
+		c.style.display="none";
+		a.style.display="none";
+		p.style.display="";
+		break;
+		case 2:
+		p.style.display="none";
+		c.style.display="none";
+		a.style.display="none";
+		m.style.display="";
+		break;
+		case 3:
+		p.style.display="none";
+		m.style.display="none";
+		a.style.display="none";
+		c.style.display="";
+		break;
+		case 4:
+		p.style.display="none";
+		c.style.display="none";
+		m.style.display="none";
+		a.style.display="";
+		break;
+		
+	}
+}
+    </script>
+  	
+
+    <title>学生成绩查询系统</title>
+    <style type="text/css">
+    body {
+        background-color:white;
+      }
+    	#show_name{
+    		list-style: none;
+    	}
+
+    	#main_chart{
+    		height: 800px;
+    		width:800px;
+    		left:300px;
+    	}
+    	.teacher_info{
+    		width: 40%;
+    	}
+    	.teacher_info.head{
+    		width: 80px;
+    	}
+
+    	
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <!-- Static navbar -->
+      <h1 style="color:white;text-align:center;background:#C0C0C0;">学生成绩管理系统</h1>
+      <nav class="navbar navbar-default " style="color: black;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+              	<i class="glyphicon glyphicon-user" id="user_icon">
+              	 <ul id="show_name">
+              		<li>学生</li>
+              		<li>id</li>
+              	 </ul>
+              	</i>
+              </li>
+              <li><a href="./">切换用户<span class="sr-only">(current)</span></a></li>
+              <li><a href="index.html">退出</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-list bs-docs-sidenav">
+            <li><a href="#" onclick="switch_dis(1)">个人信息</a></li>
+            <li><a href="#" onclick="switch_dis(4)">账户信息</a></li>
+            <li><a href="#" onclick="switch_dis(2)">学生成绩</a></li>
+            <li><a href="#" onclick="switch_dis(3)">我的课程</a></li>
+            
+          </ul>
+       </div>
+       
+       <div class="container" id="desk">
+       	<div class="container" id="personal_info">
+       		<fieldset>
+       			<legend>个人信息</legend>
+       			<table class="table teacher_info">
+       				<tr>
+       					<th class="head">姓名：</th>
+       					<td class="teacher_name content">{{teacher_name}}</td>
+       				</tr>
+       				<tr>
+       					<th class="head">职工号：</th>
+       					<td class="teacher_id content">{{teacher_id}}</td>
+       				</tr>
+       				<tr>
+       					<th class="head">课程：</th>
+       					<td class="content">
+       						<ul style="list-style: none;">{{course_list}}</ul>
+       					</td>
+       					
+       				</tr>
+                </table>
+                
+       		</fieldset>
+       	</div>
+       	<div class="container" id="main_chart" style="display: none;">
+       		<fieldset>
+       		<legend>学生成绩</legend>
+       		<table class="table table-striped display" id="grade_chart">
+       			<thead>
+       				<tr>
+       					<th>姓名</th>
+       					<th>学号</th>
+       					<th>课程</th>
+       					<th>成绩</th>
+       				</tr>
+       			</thead>
+       			<tbody>
+       				<tr>
+       					<td contenteditable="false">张三</th>
+       					<td contenteditable="false">11</th>
+       					<td contenteditable="false">x</th>
+       					<td contenteditable="true">90</th>
+       				</tr>
+       				<tr>
+       					<td contenteditable="false">李四光</th>
+       					<td contenteditable="false">11</th>
+       					<td contenteditable="false">x</th>
+       					<td contenteditable="true">90</th>
+       				</tr>
+       			</tbody>
+            </table>
+            <input type="button" value="保存" onclick="MakeForm(grade_chart)" />
+       	</fieldset>
+       	</div>
+        <div class="container" id="course_container" style="display: none;">
+        	<fieldset>
+        		<legend>我的课程</legend>
+        		<table class="table" id="course_chart">
+        			{{course_chart}}
+        		</table>
+        		<a href="chart.html">查看统计</a>
+        	</fieldset>
+        </div>
+        <div class="container" id="account_info" style="display: none;">
+        	<fieldset>
+        		<legend>账号信息</legend>
+        		<table class="table teacher_info">
+                	<tr>
+       					<th class="head">登陆id：</th>
+       					<td calss="user_id content">{{user_id}}</td>
+       				</tr>
+       				<tr>
+       					<th class="head">密码：</th>
+       					<td class="password content" id="old_password">{{password}}</td>
+       					<td>
+       						<input type="button" value="修改" onclick="change_password()"/>
+       					</td>
+       				</tr>
+                </table>
+        	</fieldset>
+        </div>
+       </div>
+    </div> <!-- /container -->
+    
+    <script>
+	    $(document).ready( function () {
+        $('#grade_chart').DataTable();
+    } );
+    </script>
+    
+    <script>
+    function MakeForm(input_value)  
+{  
+    var nform=document.createElement("form");
+    nform.id="nform";  
+    nform.name="nform";
+    var input_tag=document.createElement("input");
+    input_tag.name="input_name";
+    input_tag.value=input_value;
+    document.body.appendChild(nform);
+    nform.appendChild(input_tag);
+    nform.method="POST";
+    nform.submit();
+    document.body.removeChild(nform);
+}  
+    </script>
+    <script>
+    function change_password(){
+    	var rpass=document.getElementById("old_password").innerHTML;
+    	var opass=prompt("请输入原密码：","");
+    	if (opass==rpass) {
+    		var npass=prompt("请输入新密码：","");
+    		if(npass.length==0){
+    			alert("密码不能为空！");
+    		}
+    		else{
+    		MakeForm(npass);
+    		}
+    	}
+    	else if(opass==null){}
+    	else{
+    		alert("密码错误！");
+    	}
+    }
+    </script>
+    
+  </body>
+</html>
